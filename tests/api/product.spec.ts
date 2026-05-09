@@ -145,12 +145,24 @@ test.describe("Search Product API", () => {
     });
   }
 
-  test("Should retrieve error when lacking search product name", async ({ apiClient }) => {
+  test("Should retrieve all products when search product name is empty", async ({ apiClient }) => {
     const endpoint = "/searchProduct";
     const payloadData = {
       form: {
-        search_product: "",
+        search_product: ""
       }
+    };
+    const response = await apiClient.post(endpoint, payloadData);
+    BaseValidator.verifyStatusCode(response, successCode);
+    BaseValidator.verifyFieldValue(response, "responseCode", 200);
+    BaseValidator.verifyFieldValueIsNonEmptyArray(response, "products");
+    BaseValidator.verifyArrayHasNoDuplicateObjects(response, "products");
+  });
+
+  test("Should retrieve error when lacking search product name", async ({ apiClient }) => {
+    const endpoint = "/searchProduct";
+    const payloadData = {
+      form: {}
     };
     const response = await apiClient.post(endpoint, payloadData);
     BaseValidator.verifyStatusCode(response, successCode);
