@@ -17,8 +17,8 @@ const unsupportedMethodMsg = `Method \"{method}\" not allowed.`;
 
 test.describe.configure({ mode: "parallel" });
 
-test.beforeEach(async ({ authService }) => {
-  console.log(`[Before each hook] Creating test user.`);
+test.beforeEach(async ({ authService }, testInfo) => {
+  console.log(`[Before each hook] Creating test user. Worker index: ${testInfo.workerIndex}`);
   await authService.createAccount(testUser);
   console.log(`[Created] Test user has been created with email: ${testUser.email} and password: ${testUser.password}`);
 });

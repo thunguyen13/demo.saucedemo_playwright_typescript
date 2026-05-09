@@ -1,4 +1,4 @@
-import { ApiClient, ResquestOption } from "@core/api/ApiClient";
+import { ApiClient, RequestOption } from "@core/api/ApiClient";
 import { cleanUndefinedValues } from "@utils/helpers";
 
 export interface UserIdentity {
@@ -39,7 +39,7 @@ export class AuthService {
      */
     async verifyLogin(payloadData: UserIdentity) {
         const endpoint = "/verifyLogin";
-        const payload: ResquestOption["Post"] = {
+        const payload: RequestOption["Post"] = {
             form: {
                 email: payloadData.email,
                 password: payloadData.password
@@ -57,27 +57,8 @@ export class AuthService {
      */
     async createAccount(payloadData: Partial<UserInfo>) {
         const endpoint = "/createAccount";
-        const rawPayloadData = {
-            email: payloadData.email,
-            password: payloadData.password,
-            name: payloadData.name,
-            title: payloadData.title,
-            birth_date: payloadData.birth_date,
-            birth_month: payloadData.birth_month,
-            birth_year: payloadData.birth_year,
-            firstname: payloadData.firstname,
-            lastname: payloadData.lastname,
-            company: payloadData.company,
-            address1: payloadData.address1,
-            address2: payloadData.address2,
-            country: payloadData.country,
-            zipcode: payloadData.zipcode,
-            state: payloadData.state,
-            city: payloadData.city,
-            mobile_number: payloadData.mobile_number
-        };
-        const payload: ResquestOption["Post"] = {
-            form: cleanUndefinedValues(rawPayloadData)
+        const payload: RequestOption["Post"] = {
+            form: cleanUndefinedValues(payloadData)
         };
         const response = await this.client.post(endpoint, payload);
         return response;
@@ -90,7 +71,7 @@ export class AuthService {
      */
     async deleteAccount(payloadData: UserIdentity) {
         const endpoint = "/deleteAccount";
-        const payload: ResquestOption["Delete"] = {
+        const payload: RequestOption["Delete"] = {
             form: {
                 email: payloadData.email,
                 password: payloadData.password
@@ -108,7 +89,7 @@ export class AuthService {
     async updateAccount(payloadData: Partial<UserInfo>) {
         const endpoint = "/updateAccount";
         const cleanedPayloadData = cleanUndefinedValues(payloadData);
-        const payload: ResquestOption["Put"] = { 
+        const payload: RequestOption["Put"] = { 
             form: cleanedPayloadData 
         };
         const response = await this.client.put(endpoint, payload);
@@ -118,7 +99,7 @@ export class AuthService {
     
     async getUserDetailByEmail(payloadData: { email: string }) {
         const endpoint = "/getUserDetailByEmail";
-        const queryParams: ResquestOption["Get"] = {
+        const queryParams: RequestOption["Get"] = {
             params: {
                 email: payloadData.email
             }

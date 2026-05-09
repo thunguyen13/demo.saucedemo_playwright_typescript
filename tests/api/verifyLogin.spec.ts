@@ -16,10 +16,10 @@ const unsupportedMethodMsg = "This request method is not supported.";
 
 test.describe.configure({ "mode": "parallel" });
 
-test.beforeAll(async ({ authService }) => {
-    console.log(`[Before all hook] Creating test user.`);
-    await authService.createAccount(testUser);
-    console.log(`[Created] Test user has been created with email: ${testUser.email} and password: ${testUser.password}`);
+test.beforeAll(async ({ authService }, testInfo) => {
+    console.log(`[Before all hook] Creating test user. Worker index: ${testInfo.workerIndex}`);
+    const res = await authService.createAccount(testUser);
+    console.log(`[Created] Test user has been created with email: ${testUser.email} and password: ${testUser.password}. Response code: ${res.body.responseCode}`);
 });
 
 test.describe("Verify Success Login API", () => {

@@ -15,8 +15,8 @@ const notFoundMsg = "User not found!";
 const unsupportedMethodCode = 405;
 const unsupportedMethodMsg = `Method \"{method}\" not allowed.`;
 
-test.beforeAll(async ({ authService }) => {
-    console.log(`[Before all hook] Creating test user.`);
+test.beforeAll(async ({ authService }, testInfo) => {
+    console.log(`[Before all hook] Creating test user. Worker index: ${testInfo.workerIndex}`);
     await authService.createAccount(testUser);
     console.log(`[Created] Test user has been created with email: ${testUser.email} and password: ${testUser.password}`);
 });
@@ -107,6 +107,6 @@ test.afterAll(async ({ authService }) => {
         email: testUser.email,
         password: testUser.password
     }
-    await authService.deleteAccount(userIdentity);
-    console.log(`[Clean up] Test user with email: ${testUser.email} has been deleted`);
+    const res = await authService.deleteAccount(userIdentity);
+    console.log(`[Clean up] Test user with email: ${testUser.email} has been deleted. Response code: ${res.body.responseCode}`);
 });
