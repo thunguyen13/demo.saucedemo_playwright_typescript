@@ -3,7 +3,7 @@
 export const commonResponseSchema = {
     type: "object",
     properties: {
-        responseCode: { type: "ingeter" },
+        responseCode: { type: "integer" },
         message: { type: "string" },
     },
     required: ["responseCode", "message"],

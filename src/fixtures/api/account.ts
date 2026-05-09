@@ -20,7 +20,7 @@ type Fixtures = {
 
 export const test = base.extend<Fixtures>({
   apiClient: async ({ request }, use) => {
-    const baseUrl = "https://automationexercise.com/api";
+    const baseUrl = "/api";
     const apiClient = new ApiClient(request, baseUrl);
     await use(apiClient);
   },

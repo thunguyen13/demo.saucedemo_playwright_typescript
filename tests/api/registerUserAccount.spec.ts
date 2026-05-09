@@ -1,7 +1,7 @@
 import { BaseValidator } from "@core/api/BaseValidator";
 import { test } from "@fixtures/api/account";
 import { getValueFieldByPath } from "@utils/helpers";
-import { duplicateEmailRegisterData, invalidRegisterData, missingFieldRegisterData, validRegisterData } from "src/data/accountData";
+import { duplicateEmailRegisterData, invalidRegisterData, missingFieldRegisterData, validRegisterData } from "@data/accountData";
 
 
 const successCode = 200;

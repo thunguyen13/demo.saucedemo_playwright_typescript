@@ -1,7 +1,7 @@
 import { BaseValidator } from "@core/api/BaseValidator";
 import { test } from "@fixtures/api/account";
 import { UserIdentity, UserInfo } from "@services/AuthService";
-import { validAccInfo, failureGetUserDetailData } from "src/data/accountData";
+import { validAccInfo, failureGetUserDetailData } from "@data/accountData";
 import { userDetailSchema } from "src/models/account.schema";
 
 const endpoint = "/getUserDetailByEmail";
@@ -36,7 +36,7 @@ test.describe("Success Get User Detail By Email API", () => {
 
 test.describe("Failed Get User Detail By Email API", () => {
     for (const data of failureGetUserDetailData) {
-        test(`Should failed and retieve error message for: ${data.case}`, async ({ apiClient }) => {
+        test(`Should failed and retrieve error message for: ${data.case}`, async ({ apiClient }) => {
             const payloadData = {
                 params: data.payloadData
             };
@@ -55,21 +55,21 @@ test.describe("Verify API Get User Detail retrieves error message for unsupporte
             email: testUser.email
         }
     };
-    test("Should retieve error message for unsupported HTTP method: POST", async ({ apiClient }) => {
+    test("Should retrieve error message for unsupported HTTP method: POST", async ({ apiClient }) => {
         console.log(`Testing getUserDetail with unsupported HTTP method: POST and payload: ${JSON.stringify(payloadData.params)}`);
         const response = await apiClient.post(endpoint, payloadData);
         BaseValidator.verifyStatusCode(response, successCode);
         BaseValidator.verifyFieldValue(response, "responseCode", unsupportedMethodCode);
         BaseValidator.verifyErrorResponse(response, unsupportedMethodMsg);
     });
-    test("Should retieve error message for unsupported HTTP method: PUT", async ({ apiClient }) => {
+    test("Should retrieve error message for unsupported HTTP method: PUT", async ({ apiClient }) => {
         console.log(`Testing getUserDetail with unsupported HTTP method: PUT and payload: ${JSON.stringify(payloadData.params)}`);
         const response = await apiClient.put(endpoint, payloadData);
         BaseValidator.verifyStatusCode(response, successCode);
         BaseValidator.verifyFieldValue(response, "responseCode", unsupportedMethodCode);
         BaseValidator.verifyErrorResponse(response, unsupportedMethodMsg);
     });
-    test("Should retieve error message for unsupported HTTP method: DELETE", async ({ apiClient }) => {
+    test("Should retrieve error message for unsupported HTTP method: DELETE", async ({ apiClient }) => {
         console.log(`Testing getUserDetail with unsupported HTTP method: DELETE and payload: ${JSON.stringify(payloadData.params)}`);
         const response = await apiClient.delete(endpoint, payloadData);
         BaseValidator.verifyStatusCode(response, successCode);

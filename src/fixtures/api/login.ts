@@ -14,7 +14,7 @@ export const test = base.extend<{},Fixtures>({
   apiClient: 
   [
     async ({}, use) => {
-      const baseUrl = "https://automationexercise.com/api";
+      const baseUrl = "/api";
       const apiRequest: APIRequestContext = await playwrightRequest.newContext({ baseURL: baseUrl });
       const apiClient = new ApiClient(apiRequest, baseUrl);
       await use(apiClient);

@@ -78,18 +78,18 @@ export const badRequestData: Array<TypeLogin> = [
     message: "Bad request, email parameter is missing in {method} request.",
   },
   {
-    case: "Email and password fields are empty",
-    payloadData: { email: "", password: "" },
+    case: "Email and password fields are unset",
+    payloadData: { email: undefined, password: undefined },
     message: "Bad request, email parameter is missing in {method} request.",
   },
   {
-    case: "Email field is empty",
-    payloadData: { email: "", password: validAccInfo.password },
+    case: "Email field is unset",
+    payloadData: { email: undefined, password: validAccInfo.password },
     message: "Bad request, email parameter is missing in {method} request.",
   },
   {
-    case: "Password field is empty",
-    payloadData: { email: validAccInfo.email, password: "" },
+    case: "Password field is unset",
+    payloadData: { email: validAccInfo.email, password: undefined },
     message: "Bad request, password parameter is missing in {method} request.",
   },
 ];
@@ -107,15 +107,30 @@ export const notFoundData: Array<TypeLogin> = [
     },
   },
   {
-    case: "Email and password fields are blank",
+    case: "Email and password fields are empty",
+    payloadData: { email: "", password: "" },
+    message: "Bad request, email parameter is missing in {method} request.",
+  },
+  {
+    case: "Email field is empty",
+    payloadData: { email: "", password: validAccInfo.password },
+    message: "Bad request, email parameter is missing in {method} request.",
+  },
+  {
+    case: "Password field is empty",
+    payloadData: { email: validAccInfo.email, password: "" },
+    message: "Bad request, password parameter is missing in {method} request.",
+  },
+  {
+    case: "Email and password fields are blank spaces",
     payloadData: { email: " ", password: " " },
   },
   {
-    case: "Email field is blank",
+    case: "Email field is blank space",
     payloadData: { email: " ", password: validAccInfo.password },
   },
   {
-    case: "Password field is blank",
+    case: "Password field is blank space",
     payloadData: { email: validAccInfo.email, password: " " },
   },
   {

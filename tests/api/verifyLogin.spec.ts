@@ -1,7 +1,7 @@
 import { BaseValidator } from "@core/api/BaseValidator";
 import { test } from "@fixtures/api/account";
 import { UserIdentity, UserInfo } from "@services/AuthService";
-import { validAccInfo, badRequestData, notFoundData } from "src/data/accountData";
+import { validAccInfo, badRequestData, notFoundData } from "@data/accountData";
 
 const endpoint = "/verifyLogin";
 const testUser: UserInfo = validAccInfo;
@@ -38,7 +38,7 @@ test.describe("Verify Success Login API", () => {
 
 test.describe("Verify Failed Login API", () => {
     for (const data of badRequestData) {
-        test(`Should retieve error message for missing field(s): ${data.case}`, async ({ apiClient }) => {
+        test(`Should retrieve error message for missing field(s): ${data.case}`, async ({ apiClient }) => {
             const payloadData = {
                 form: data.payloadData
             };
@@ -50,7 +50,7 @@ test.describe("Verify Failed Login API", () => {
         });
     }
     for (const data of notFoundData) {
-        test(`Should retieve error message for invalid credentials: ${data.case}`, async ({ apiClient }) => {
+        test(`Should retrieve error message for invalid credentials: ${data.case}`, async ({ apiClient }) => {
             const payloadData = {
                 form: data.payloadData
             };
@@ -70,21 +70,21 @@ test.describe("Verify API Login retrieves error message for unsupported HTTP met
             password: testUser.password
         }
     }
-    test("Should retieve error message for unsupported HTTP method: GET", async ({ apiClient }) => {
+    test("Should retrieve error message for unsupported HTTP method: GET", async ({ apiClient }) => {
         console.log(`Testing login with unsupported HTTP method: GET and payload: ${JSON.stringify(payloadData.form)}`);
         const response = await apiClient.get(endpoint, payloadData);
         BaseValidator.verifyStatusCode(response, successCode);
         BaseValidator.verifyFieldValue(response, "responseCode", unsupportedMethodCode);
         BaseValidator.verifyErrorResponse(response, unsupportedMethodMsg);
     });
-    test("Should retieve error message for unsupported HTTP method: PUT", async ({ apiClient }) => {
+    test("Should retrieve error message for unsupported HTTP method: PUT", async ({ apiClient }) => {
         console.log(`Testing login with unsupported HTTP method: PUT and payload: ${JSON.stringify(payloadData.form)}`);
         const response = await apiClient.put(endpoint, payloadData);
         BaseValidator.verifyStatusCode(response, successCode);
         BaseValidator.verifyFieldValue(response, "responseCode", unsupportedMethodCode);
         BaseValidator.verifyErrorResponse(response, unsupportedMethodMsg);
     });
-    test("Should retieve error message for unsupported HTTP method: DELETE", async ({ apiClient }) => {
+    test("Should retrieve error message for unsupported HTTP method: DELETE", async ({ apiClient }) => {
         console.log(`Testing login with unsupported HTTP method: DELETE and payload: ${JSON.stringify(payloadData.form)}`);
         const response = await apiClient.delete(endpoint, payloadData);
         BaseValidator.verifyStatusCode(response, successCode);
