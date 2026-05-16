@@ -88,9 +88,8 @@ export class AuthService {
      */
     async updateAccount(payloadData: Partial<UserInfo>) {
         const endpoint = "/updateAccount";
-        const cleanedPayloadData = cleanUndefinedValues(payloadData);
         const payload: RequestOption["Put"] = { 
-            form: cleanedPayloadData 
+            form: cleanUndefinedValues(payloadData)
         };
         const response = await this.client.put(endpoint, payload);
         return response;
