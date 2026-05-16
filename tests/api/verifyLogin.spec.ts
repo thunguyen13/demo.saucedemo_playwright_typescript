@@ -99,6 +99,6 @@ test.afterAll(async ({ authService }) => {
         email: testUser.email,
         password: testUser.password
     }
-    await authService.deleteAccount(userIdentity);
-    console.log(`[Clean up] Test user with email: ${testUser.email} has been deleted`);
+    const res = await authService.deleteAccount(userIdentity);
+    console.log(`[Clean up] Test user with email: ${testUser.email} has been deleted. Response code: ${res.body.responseCode}`);
 });
