@@ -52,5 +52,9 @@ export default defineConfig({
         viewport: { width: 1280, height: 630 },
       },
     },
+    {
+      name: 'api',
+      testDir: './tests/api',
+    }
   ],
 });
