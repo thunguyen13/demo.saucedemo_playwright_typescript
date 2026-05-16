@@ -1,0 +1,9 @@
+[
+    { "keyword": " ", "hasResult": true },
+    { "keyword": "a", "hasResult": true },
+    { "keyword": "abc", "hasResult": false },
+    { "keyword": "TOP", "hasResult": true },
+    { "keyword": "en top", "hasResult": true },
+    { "keyword": "!Top", "hasResult": false },
+    { "keyword": "  top", "hasResult": false }
+]

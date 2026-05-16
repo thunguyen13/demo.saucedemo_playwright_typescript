@@ -24,3 +24,6 @@ auth/storage/
 
 # github
 .github/
+
+# draft
+*.draft.*
