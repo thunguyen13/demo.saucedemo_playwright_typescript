@@ -246,7 +246,7 @@ export const invalidRegisterData: Array<TypeUserInfo> = [
     message: "Bad request, invalid email format.",
   },
   {
-    case: "Ivalid email format - missing username",
+    case: "Invalid email format - missing username",
     payloadData: buildUserData(validAccInfo, { email: `@demo.abc` }),
     message: "Bad request, invalid email format.",
   },

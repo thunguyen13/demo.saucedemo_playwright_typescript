@@ -2,9 +2,14 @@ import path from "path";
 import fs from "fs";
 import { parse } from "csv-parse/sync";
 
+const ROOT_FOLDER = process.cwd();
+const DATA_FOLDER = path.join(ROOT_FOLDER, 'src', 'data');
 
-const DATA_FOLDER = path.join(__dirname, '..', 'data');
-
+/**
+ * Get data from a JSON file and parse it into an array of objects of type T.
+ * @param filePath - path to the file from the data folder, e.g. "api/registerUserAccount.json"
+ * @returns 
+ */
 export function getDataFromJsonFile<T>(filePath: string): T[] {
     const fullPath = path.join(DATA_FOLDER, filePath);
     try {
@@ -15,6 +20,11 @@ export function getDataFromJsonFile<T>(filePath: string): T[] {
     }
 }
 
+/**
+ * Get data from a CSV file and parse it into an array of objects. Each object represents a row in the CSV file, with keys corresponding to the column headers.
+ * @param filePath - path to the file from the data folder, e.g. "api/registerUserAccount.csv"
+ * @returns 
+ */
 export function getDataFromCsvFile(filePath: string) {
     const fullPath = path.join(DATA_FOLDER, filePath);
     try {
