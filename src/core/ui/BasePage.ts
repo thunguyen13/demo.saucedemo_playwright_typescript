@@ -1,0 +1,12 @@
+import { Page } from "@playwright/test";
+
+
+export abstract class BasePage {
+    constructor(protected page: Page) {}
+
+    private scrollUpBtn = this.page.locator("#scrollUp");
+
+    async scrollToTop() {
+        await this.scrollUpBtn.click();
+    }
+}

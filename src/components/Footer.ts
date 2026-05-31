@@ -1,0 +1,15 @@
+import { Page } from "@playwright/test";
+
+
+
+class Footer {
+    constructor(private page: Page) {}
+
+    private readonly footer = this.page.locator("#footer");
+    private readonly subcriptionText = this.footer.locator("h2");
+    private readonly form = {
+        inputField: this.footer.locator("input[id='susbscribe_email']"),
+        submitButton: this.footer.locator("button[id='subscribe']"),
+    };
+
+} 
