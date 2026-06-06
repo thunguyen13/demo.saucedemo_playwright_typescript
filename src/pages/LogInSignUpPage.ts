@@ -1,6 +1,7 @@
 import { BasePage } from "@core/ui/BasePage";
 import { BaseVerification } from "@core/ui/BaseVerification";
 import { expect, Page } from "@playwright/test";
+import { SignUpInformationPage } from "./SignUpInformationPage";
 
 
 export class LogInPage extends BasePage {
@@ -43,6 +44,12 @@ export class LogInPage extends BasePage {
         await this.logInForm.emailField.fill(email);
         await this.logInForm.passwordField.fill(password);
         await this.logInForm.submitButton.click();
+    }
+
+    async signup(name: string, email: string) {
+        await this.signUpForm.nameField.fill(name);
+        await this.signUpForm.emailField.fill(email);
+        await this.signUpForm.submitButton.click();
     }
 
     /*** VERIFICATION METHODS ***/
