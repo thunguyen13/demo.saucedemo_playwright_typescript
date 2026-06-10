@@ -1,7 +1,6 @@
 import { BasePage } from "@core/ui/BasePage";
 import { BaseVerification } from "@core/ui/BaseVerification";
-import { expect, Page } from "@playwright/test";
-import { SignUpInformationPage } from "./SignUpInformationPage";
+import { Page } from "@playwright/test";
 
 
 export class LogInPage extends BasePage {
@@ -32,7 +31,7 @@ export class LogInPage extends BasePage {
     public readonly PAGE_TITLE = "Automation Exercise - Signup / Login";
     public readonly LOGIN_FORM_HEADER_TEXT = "Login to your account";
     public readonly SIGNUP_FORM_HEADER_TEXT = "New User Signup!";
-    
+
     /* ** ACTION METHODS ** */
     async navigateTo(pageType: "login" | "signup" = "login") {
         if (pageType === "login")
@@ -71,4 +70,22 @@ export class LogInPage extends BasePage {
         await this.verifyFormHeader("login", timeout);
         await this.verifyFormHeader("signup", timeout);    
     }
+
+    async verifyLogInFormValidationDisplayed(field: "email" | "password") {
+        const loginRequiredFieldMap = {
+            email: this.logInForm.emailField,
+            password: this.logInForm.passwordField,
+        };
+        const fieldLocator = loginRequiredFieldMap[`${field}` as keyof typeof loginRequiredFieldMap];
+        await BaseVerification.verifyFieldInvalid(fieldLocator);
+    }
+
+    async verifySignUpFormValidationDisplayed(field: "name" | "email") {
+        const signupRequiredFieldMap = {
+            name: this.signUpForm.nameField,
+            email: this.signUpForm.emailField,
+        };
+        const fieldLocator = signupRequiredFieldMap[`${field}` as keyof typeof signupRequiredFieldMap];
+        await BaseVerification.verifyFieldInvalid(fieldLocator);
+    }        
 }

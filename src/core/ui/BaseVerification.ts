@@ -18,4 +18,10 @@ export class BaseVerification {
         const errorMsg = `Expected current URL to match "${expectedUrl}"`;
         await expect(page, errorMsg).toHaveURL(expectedUrl, { timeout });
     }
+
+    static async verifyFieldInvalid(fieldLocator: Locator, timeout: number = 5000) {
+        const errorMsg = `Expected browser validation tooltip to be displayed for locator ${fieldLocator.toString()}`;
+        const isInvalid = await fieldLocator.evaluate(el => el.matches(":invalid"), { timeout });
+        expect(isInvalid, errorMsg).toBe(true);
+    }
 }
