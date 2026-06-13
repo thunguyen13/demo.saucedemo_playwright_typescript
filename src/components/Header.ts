@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 
 
-class Header {
+export class Header {
     constructor(private page: Page) {}
 
     private readonly header = this.page.locator("#header");

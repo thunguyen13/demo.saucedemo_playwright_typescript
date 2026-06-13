@@ -49,7 +49,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'e2e',
+      name: 'ui',
       use: { 
         ...devices['Desktop Chrome'],
         viewport: { width: 1280, height: 630 },

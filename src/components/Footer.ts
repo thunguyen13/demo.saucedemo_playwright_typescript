@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 
 
-class Footer {
+export class Footer {
     constructor(private page: Page) {}
 
     private readonly footer = this.page.locator("#footer");
