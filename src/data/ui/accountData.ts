@@ -1,98 +1,105 @@
 import { invalidRegisterData } from './../accountData';
-import { AccountInformation, requiredFields } from "@pages/SignUpInformationPage";
-import { buildUserData } from "@utils/dataHelpers";
+import { requiredFields } from "@pages/SignUpInformationPage";
+import { UserInfo } from '@services/AuthService';
+import { buildUserData, generateUniqueEmailAndName } from "@utils/dataHelpers";
 import { generateUniqueNumberString } from "@utils/helpers";
 
 type Case = {
   name: string;
-  expectedFieldError: string;
+  screen: number;
+  expectedFieldError: keyof UserInfo | "";
   errorMessage: string;
-  data: Partial<AccountInformation>;
+  data: Partial<UserInfo>;
 };
 
 const randomString = generateUniqueNumberString(100, 999, true);
 
-export const validAccInfo: AccountInformation = {
+export const validAccInfo: UserInfo = {
   email: `testUser_${randomString}@demo.abc`,
   password: "123456",
   name: `Test User - ${randomString}`,
   title: "Mr",
-  dayOfBirth: "1",
-  monthOfBirth: "January",
-  yearOfBirth: "1990",
-  firstName: "Test",
-  lastName: "User",
+  birth_date: "1",
+  birth_month: "January",
+  birth_year: "1990",
+  firstname: "Test",
+  lastname: "User",
   company: "Test Company",
-  address: "123 Test Street",
+  address1: "123 Test Street",
   address2: "Suite 100",
-  country: "Test Country",
-  zipCode: "12345",
+  country: "Canada",
+  zipcode: "12345",
   state: "Test State",
   city: "Test City",
-  mobileNumber: "0912345678",
+  mobile_number: "0912345678",
   newsLetter: true,
   offers: true,
 };
 
-export const invalidRegisterData_Screen1: Array<Case> = [
+export const invalidRegisterData_misingFieldData: Array<Case> = [
   {
     name: "Email field is empty",
+    screen: 1,
     expectedFieldError: "email",
     errorMessage: "",
     data: buildUserData(validAccInfo, { deleteFields: ["email"] }),
   },
   {
     name: "Name field is empty",
+    screen: 1,
     expectedFieldError: "name",
     errorMessage: "",
     data: buildUserData(validAccInfo, { deleteFields: ["name"] }),
   },
-  {
-    name: "Email already exist",
-    expectedFieldError: "",
-    errorMessage: "Email Address already exist!",
-    data: {
-      email: validAccInfo.email,
-      name: validAccInfo.name,
-    },
-  },
-];
-
-export const invalidRegisterData_misingField_Screen2: Array<Case> = requiredFields
-  .filter(field => field !== "email" && field !== "name")
+  ...requiredFields
+  .filter(field => field !== "email" && field !== "name" && field !== "country")
   .map(field => {
     return {
       name: `Missing required field: ${field}`,
-      expectedFieldError: field as string,
+      screen: 2,
+      expectedFieldError: field,
       errorMessage: "",
-      data: buildUserData(validAccInfo, { deleteFields: [field] }),
+      data: buildUserData(validAccInfo, { overrides: generateUniqueEmailAndName(), deleteFields: [field] }),
     };
-  });
+  }),
+];
 
-export const invalidRegisterData_invalidFormatField_Screen2: Array<Case> = [
+export const invalidRegisterData_invalidFormatField: Array<Case> = [
   {
     name: "Password less than 6 characters",
+    screen: 2,
     expectedFieldError: "password",
     errorMessage: "Password must be at least 6 characters!",
-    data: buildUserData(validAccInfo, { overrides: { password: "123" } }),
+    data: buildUserData(validAccInfo, { overrides: { ...generateUniqueEmailAndName(), password: "123" } }),
   },
   {
     name: "Password more than 20 characters",
+    screen: 2,
     expectedFieldError: "password",
     errorMessage: "Password must be at most 20 characters!",
-    data: buildUserData(validAccInfo, { overrides: { password: "1".repeat(21) } }),
+    data: buildUserData(validAccInfo, { overrides: { ...generateUniqueEmailAndName(), password: "1".repeat(21) } }),
   },
   {
     name: "Invalid mobile number format",
-    expectedFieldError: "mobileNumber",
+    screen: 2,
+    expectedFieldError: "mobile_number",
     errorMessage: "Mobile number is not valid!",
-    data: buildUserData(validAccInfo, { overrides: { mobileNumber: "invalidNumber" } }),
+    data: buildUserData(validAccInfo, { overrides: { ...generateUniqueEmailAndName(), mobile_number: "invalidNumber" } }),
   },
   {
     name: "Invalid zip code format",
-    expectedFieldError: "zipCode",
+    screen: 2,
+    expectedFieldError: "zipcode",
     errorMessage: "Zip code is not valid!",
-    data: buildUserData(validAccInfo, { overrides: { zipCode: "12345!" } }),
+    data: buildUserData(validAccInfo, { overrides: { ...generateUniqueEmailAndName(), zipcode: "12345!" } }),
   }
 ]
+
+export const invalidRegisterData_duplicateEmail: Case = {
+  name: "Email already exist",
+  screen: 1,
+  expectedFieldError: "",
+  errorMessage: "Email Address already exist!",
+  data: buildUserData(validAccInfo, { overrides: generateUniqueEmailAndName() }),
+}
 

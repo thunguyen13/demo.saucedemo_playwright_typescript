@@ -50,6 +50,7 @@ export default defineConfig({
   projects: [
     {
       name: 'ui',
+      testDir: './tests/ui',
       use: { 
         ...devices['Desktop Chrome'],
         viewport: { width: 1280, height: 630 },
