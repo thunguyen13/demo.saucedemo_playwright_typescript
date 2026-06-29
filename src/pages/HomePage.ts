@@ -1,5 +1,6 @@
 import { BasePage } from "@core/ui/BasePage";
 import { Page } from "@playwright/test";
+import { step } from "@utils/logger";
 
 
 export class HomePage extends BasePage {
@@ -12,7 +13,8 @@ export class HomePage extends BasePage {
     /* ** CONSTANTS ** */
     public readonly PAGE_TITLE = "Automation Exercise";
 
-     /* ** ACTION METHODS ** */
+    /* ** ACTION METHODS ** */
+    @step("Navigate to Home Page")
      async navigateTo() {
         await this.page.goto("/");
     }

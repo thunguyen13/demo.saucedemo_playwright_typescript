@@ -1,6 +1,7 @@
 import { BasePage } from "@core/ui/BasePage";
 import { BaseVerification } from "@core/ui/BaseVerification";
 import { Page } from "@playwright/test";
+import { step } from "@utils/logger";
 
 
 export class AccountCreatedPage extends BasePage {
@@ -24,11 +25,13 @@ export class AccountCreatedPage extends BasePage {
     ];
 
     /* ** ACTION METHODS ** */
+    @step("Clicking the Continue button on the Account Created page")
     async clickContinue() {
         await this.continueButton.click();
     }
 
     /*** VERIFICATION METHODS ***/
+    @step("Verifying the content of the Account Created page with expected header and messages")
     async verifyPageContent(timeout = 5000) {
         await BaseVerification.verifyText(this.textLocators.header, this.HEADER, timeout);
         for (let i = 0; i < this.MESSAGES.length; i++) {
