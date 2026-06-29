@@ -7,22 +7,24 @@ export interface UserIdentity {
 }
 
 export interface UserInfo {
+    title: string; //"Mr" | "Mrs";
+    name: string;
     email: string;
     password: string;
-    name: string;
-    title: string;
     birth_date: string;
     birth_month: string;
     birth_year: string;
+    newsLetter?: boolean;
+    offers?: boolean;
     firstname: string;
     lastname: string;
     company: string;
     address1: string;
     address2: string;
-    country: string;
-    zipcode: string;
+    country: string | number;
     state: string;
     city: string;
+    zipcode: string;
     mobile_number: string;
 };
 
