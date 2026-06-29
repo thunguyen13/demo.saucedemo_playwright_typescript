@@ -1,5 +1,9 @@
 import { generateUniqueNumberString } from "@utils/helpers";
 
+/**
+ * Generates a unique email and name for a test user.
+ * @returns { email: string; name: string }
+ */
 export function generateUniqueEmailAndName(): { email: string; name: string } {
   const randomString = generateUniqueNumberString(100, 999, true);
   return {
@@ -8,6 +12,12 @@ export function generateUniqueEmailAndName(): { email: string; name: string } {
   };
 }
 
+/**
+ * 
+ * @param baseObject base object to override
+ * @param options {overrides: Partial<T>, deleteFields: Array<keyof T>, deleteRemainingFields: boolean} - to define overrides, fields to delete, and whether to delete remaining fields
+ * @returns 
+ */
 export function buildUserData<T extends object>(
   baseObject: T = {} as T,
   options?: {
