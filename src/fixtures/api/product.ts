@@ -2,7 +2,7 @@ import { test as base } from '@playwright/test';
 import { ApiClient } from '@core/api/ApiClient';
 import { ProductService } from 'src/services/ProductService';
 
-type Fixtures = {
+interface Fixtures {
     apiClient: ApiClient;
     productService: ProductService;
 };

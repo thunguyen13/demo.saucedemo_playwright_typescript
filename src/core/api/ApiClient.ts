@@ -10,7 +10,7 @@ export type RequestOption = {
 export interface ApiResponse {
   status: number;
   headers: Record<string, string>;
-  body: any;
+  body: unknown;
   raw: APIResponse;
 };
 

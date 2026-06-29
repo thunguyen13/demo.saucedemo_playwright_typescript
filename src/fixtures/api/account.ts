@@ -2,20 +2,14 @@ import { ApiClient } from "@core/api/ApiClient";
 import { AuthService, UserIdentity, UserInfo } from "@services/AuthService";
 import { test as base } from "@playwright/test";
 
-type Fixtures = {
+export type CleanUpUser = {
+  email: string | null;
+  password: string | null ;
+}
+interface Fixtures {
   apiClient: ApiClient;
   authService: AuthService;
-  cleanUpUser: ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => Promise<void>;
-  cleanUptestUser: {
-    email: string;
-    password: string;
-  }
+  trackUserForCleanup: (u: CleanUpUser) => Promise<void>;
 };
 
 export const test = base.extend<Fixtures>({
@@ -28,18 +22,20 @@ export const test = base.extend<Fixtures>({
     const authService = new AuthService(apiClient);
     await use(authService);
   },
-  cleanUpUser: async ({ authService }, use) => {
-    let user: { email: string; password: string } = {
-        email: "",
-        password: "",
+  trackUserForCleanup: async ({ authService }, use, testInfo) => {
+    let user: CleanUpUser = {
+        email: null,
+        password: null,
     };
 
-    await use(async (u: { email: string; password: string }) => {
+    console.log(`Worker index: ${testInfo.workerIndex}`);
+
+    await use(async (u: CleanUpUser) => {
       user = u;
     });
 
     console.log(`[Fixture - After each hook] Attempting to delete test user.`);
-    if (user && user.email && user.password) {
+    if (user.email != null && user.password != null) {
       const payload = {
         email: user.email,
         password: user.password,

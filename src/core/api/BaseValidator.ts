@@ -80,7 +80,8 @@ export class BaseValidator {
     static verifyErrorResponse(response: ApiResponse, expectedMessage: string) {
         const body = response.body;
         const msgLackingErrorField = `Expected an error message in response, and the response body contain an 'message' field.`;
-        expect(body, msgLackingErrorField).toHaveProperty("message");
+        if (typeof body !== "object" || body == null || !( "message" in body )) throw new Error(msgLackingErrorField);
+        // expect(body, msgLackingErrorField).toHaveProperty("message");
         const actualRes = body.message;
         const msgNotMatchingError = `Expected error message to be ${expectedMessage}, and got ${actualRes}`;
         expect(actualRes, msgNotMatchingError).toBe(expectedMessage);
@@ -115,6 +116,7 @@ export class BaseValidator {
 
     private static getActualValueByPath(response: ApiResponse, path: string) {
         const body = response.body;
+        if (typeof body !== "object" || body == null) throw new Error(`Response body is not an object has field '${path}'`); 
         const actualValue = getValueFieldByPath(body, path);
         const msgUndefined = `Expected field '${path}' to be defined`;
         expect(actualValue, msgUndefined).not.toBeUndefined();
