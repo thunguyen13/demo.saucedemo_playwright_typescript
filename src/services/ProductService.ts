@@ -1,4 +1,4 @@
-import { ApiClient, ResquestOption } from "@core/api/ApiClient";
+import { ApiClient, RequestOption } from "@core/api/ApiClient";
 
 
 export class ProductService {
@@ -32,7 +32,7 @@ export class ProductService {
      */
     async postSearchProducts(payloadData: { search_product: string }) {
         const endpoint = "/searchProduct";
-        const payload: ResquestOption["Post"] = {
+        const payload: RequestOption["Post"] = {
             form: payloadData
         }
         const response = await this.client.post(endpoint, payload);

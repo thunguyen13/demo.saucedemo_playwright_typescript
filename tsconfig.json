@@ -11,7 +11,9 @@
       "@services/*": ["src/services/*"],
       "@utils/*": ["src/utils/*"],
       "@fixtures/*": ["src/fixtures/*"],
-      "@data/*": ["src/data/*"]
+      "@data/*": ["src/data/*"],
+      "@models/*": ["src/models/*"],
+      "@components/*": ["src/components/*"]
     },
     "strict": true,
     "esModuleInterop": true,
